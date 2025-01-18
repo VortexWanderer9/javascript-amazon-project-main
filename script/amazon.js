@@ -1,5 +1,6 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import {convertCentIntoPrice} from "./utils/price.js"
 
  let productHtml = '';
 products.forEach(product => {
@@ -23,7 +24,7 @@ products.forEach(product => {
           </div>
 
           <div class="product-price">
-            $${(product.priceCents / 100).toFixed(2)}
+            $${convertCentIntoPrice(product.priceCents)}
           </div>
 
           <div class="product-quantity-container ">
@@ -59,47 +60,42 @@ products.forEach(product => {
  const productContainer = document.querySelector('.js-products-grid');
 productContainer.innerHTML = productHtml;
     
-// const addToCartButtons = 
+
+
+
+// Update the cart quantity in the header
+function  updateCartQuantity() {
+    let cartQuantity = 0;
+    cart.forEach((cartItem) => {
+        cartQuantity += cartItem.quantity;
+    });
+    document.querySelector('.js-cart-quantity').textContent = cartQuantity;
+}
+
+// Add message to cart
+function addMessageToCart(productId) {
+  const addToCartMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+  let addedMessageTimeoutId = null;
+  if (addedMessageTimeoutId) {
+  clearTimeout(addedMessageTimeoutId);
+}
+// Show the message
+addToCartMessage.classList.add('added-to-cart-visible');
+// Set a new timeout to hide the message after 2 seconds
+addedMessageTimeoutId = setTimeout(() => {
+  addToCartMessage.classList.remove('added-to-cart-visible');
+}, 2000);
+}
+
+
+// Add to cart button
 document.querySelectorAll('.js-add-to-cart-button').forEach((button) => {
     button.addEventListener('click', () => {
        const productId = button.dataset.productName;
-       const quantitySelect = document.querySelector(`.product-quantity-select-${productId}`);
-       let matchingProduct = null;
-       cart.forEach((item) => {
-            if (item.productId === productId) {
-                matchingProduct = item;
-            }
-       });
-       let selectedQuantity = Number(quantitySelect.value);
-       let cartQuantity = 0;
-       if (matchingProduct) {
-        cart.push({
-          quantity: selectedQuantity || 1,
-      });
-       } else { 
-            cart.push({
-                productId: productId,
-                quantity: selectedQuantity || 1,
-            });
-        }
-        cart.forEach((item) =>{
-            cartQuantity += item.quantity;
-      })
-        document.querySelector('.js-cart-quantity').textContent = cartQuantity;
+        addToCart(productId);
+        updateCartQuantity();
+        addMessageToCart(productId)
 
-        const addToCartMessage = document.querySelector(`.js-added-to-cart-${productId}`);
-        let addedMessageTimeoutId = null;
-        if (addedMessageTimeoutId) {
-        clearTimeout(addedMessageTimeoutId);
-    }
-    
-    // Show the message
-    addToCartMessage.classList.add('added-to-cart-visible');
-    
-    // Set a new timeout to hide the message after 2 seconds
-    addedMessageTimeoutId = setTimeout(() => {
-        addToCartMessage.classList.remove('added-to-cart-visible');
-    }, 2000);
 });
 
 });
