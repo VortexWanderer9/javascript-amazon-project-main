@@ -52,6 +52,6 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [
     // Save the updated cart to localStorage
     savetoLocalStorage();
   }
-  
-  console.log(cart);
+ 
+ 
   

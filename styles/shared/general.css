@@ -95,7 +95,114 @@ select {
   box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
 }
 
+
 select:focus,
 input:focus {
-  outline: 2px solid rgb(255, 153, 0);
+  outline: none; /* Remove default outline */
+  border: 1px solid rgb(255, 153, 0); /* Custom border */
+  box-shadow: 0 0 8px rgba(255, 153, 0, 0.7); /* Glow effect */
+  transition: all 0.3s ease; /* Smooth transition */
+  background-color: rgba(255, 153, 0, 0.1); /* Subtle background change */
+   /* Optional: Change text color */
+}
+
+
+/* Hide the default radio appearance */
+.delivery-option-input {
+  appearance: none; /* Remove default styling */
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgb(255, 153, 0); /* Orange border */
+  border-radius: 50%; /* Circular shape */
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for effects */
+  position: relative;
+}
+
+/* Checked state */
+.delivery-option-input:checked {
+  background-color: rgb(255, 153, 0); /* Orange fill when checked */
+  border-color: rgb(255, 102, 0); /* Darker border */
+  box-shadow: 0 0 8px rgba(255, 153, 0, 0.7); /* Glow effect */
+}
+
+/* Hover effect */
+.delivery-option-input:hover {
+  border-color: rgb(255, 102, 0); /* Darker border on hover */
+  box-shadow: 0 0 8px rgba(255, 153, 0, 0.5); /* Subtle glow */
+}
+
+/* Add a dot inside the circle for the checked state */
+.delivery-option-input:checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #fff; /* White inner dot */
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+
+/* Styling the middle section */
+.amazon-header-middle-section {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between search bar and button */
+  padding: 5px;
+  background-color: #f3f3f3; /* Light background color */
+  border-radius: 8px; /* Rounded edges */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Search bar styling */
+.search-bar {
+  flex: 1; /* Take all available width */
+  padding: 1px 5px;
+  font-size: 16px;
+  border: 2px solid #ccc; /* Light border */
+  border-radius: 6px; /* Rounded edges */
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focused state for search bar */
+.search-bar:focus {
+  border-color: rgb(255, 153, 0); /* Highlight border */
+  box-shadow: 0 0 6px rgba(255, 153, 0, 0.5); /* Glowing effect */
+}
+
+/* Search button styling */
+.search-button {
+  background-color: rgb(255, 153, 0); /* Amazon-style orange */
+  border: none;
+  border-radius: 6px; /* Match the search bar */
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Search button hover effect */
+.search-button:hover {
+  background-color: rgb(255, 102, 0); /* Darker orange */
+  transform: scale(1.05); /* Slight enlargement */
+}
+
+/* Search button active effect */
+.search-button:active {
+  transform: scale(1); /* Reset size */
+}
+
+/* Search icon styling */
+.search-icon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1); /* Make the icon white */
 }

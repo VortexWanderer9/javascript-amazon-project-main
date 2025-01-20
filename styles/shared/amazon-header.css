@@ -32,12 +32,15 @@
   cursor: pointer;
   text-decoration: none;
   border: 1px solid rgba(0, 0, 0, 0);
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
 .header-link:hover {
-  border: 1px solid white;
+  transform: scale(1.05);
 }
-
+.header-link:active{
+  transform: scale(1);
+}
 .amazon-logo {
   width: 100px;
   margin-top: 5px;
