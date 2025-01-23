@@ -55,6 +55,20 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [
     // Save the updated cart to localStorage
     savetoLocalStorage();
   }
+
+
+  export function updateDeliveryOptionId(productId, deliveryOptionId) {
+    let matchingProduct = null;
+    // Check if the product is already in the cart
+    cart.forEach((cartItem) => {
+      if (cartItem.productId === productId) {
+        matchingProduct = cartItem;
+      }
+    });
+    savetoLocalStorage();
+    matchingProduct.deliveryOptionId = deliveryOptionId;
+
+  }
  
  
   
