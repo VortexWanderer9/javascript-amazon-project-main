@@ -65,8 +65,9 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [
         matchingProduct = cartItem;
       }
     });
-    savetoLocalStorage();
+    
     matchingProduct.deliveryOptionId = deliveryOptionId;
+    savetoLocalStorage();
 
   }
  
