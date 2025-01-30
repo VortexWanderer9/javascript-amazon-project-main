@@ -3,6 +3,7 @@ import { products, getProduct } from '../../data/products.js';
 import { convertCentIntoPrice } from '../utils/price.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOption } from '../../data/deliveryOption.js';
+import { paymentSummary } from '../checkout/paymentSummary.js';
 
 function generateDeliveryHtml(matchingProduct, cartItem) {
   const today = dayjs();
@@ -90,6 +91,7 @@ function attachEventListeners() {
         elementToRemove.remove();
       }
       updateCartQuantity();
+      paymentSummary();
     });
   });
   updateCartQuantity();
@@ -99,6 +101,7 @@ function attachEventListeners() {
       const deliveryOptionId = option.dataset.deliveryOptionId;
       updateDeliveryOptionId(productId, deliveryOptionId);
       renderCheckoutSummary();
+      paymentSummary();
     });
   });
 }
