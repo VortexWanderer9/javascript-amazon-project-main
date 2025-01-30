@@ -1,5 +1,5 @@
 import { cart, removeFromCart, updateDeliveryOptionId } from '../../data/cart.js';
-import { products } from '../../data/products.js';
+import { products, getProduct } from '../../data/products.js';
 import { convertCentIntoPrice } from '../utils/price.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOption } from '../../data/deliveryOption.js';
@@ -33,7 +33,7 @@ function generateDeliveryHtml(matchingProduct, cartItem) {
   let cartSummary = '';
 
   cart.forEach((cartItem) => {
-    const matchingProduct = productMap.get(cartItem.productId);
+    const matchingProduct = getProduct(cartItem.productId);
     if (!matchingProduct) {
       console.error('Product not found for ID:', cartItem.productId);
       return;
