@@ -2,10 +2,12 @@ import { cart } from '../../data/cart.js';
 import { getProduct } from '../../data/products.js'
 import { getDeliveryOption } from '../../data/deliveryOption.js'
 import { convertCentIntoPrice } from '../utils/price.js'
+import { updateHeaderCart } from '../updateHeaderCart.js'
 
 
 
 export function paymentSummary(){
+  const cartQuantity = cart.reduce((total, item) => total + item.quantity, 0);
     let priceInCents = 0;
     let shippingPriceCents = 0;
     cart.forEach((cartItem) =>{
@@ -26,7 +28,7 @@ export function paymentSummary(){
           </div>
 
           <div class="payment-summary-row">
-            <div>Items (3):</div>
+            <div>Items (${cartQuantity}):</div>
             <div class="payment-summary-money">$${convertCentIntoPrice(priceInCents)}</div>
           </div>
 

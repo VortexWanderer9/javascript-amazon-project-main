@@ -1,9 +1,11 @@
-import { cart, removeFromCart, updateDeliveryOptionId } from '../../data/cart.js';
+import { cart, removeFromCart, updateDeliveryOptionId, updateQuantity } from '../../data/cart.js';
 import { products, getProduct } from '../../data/products.js';
 import { convertCentIntoPrice } from '../utils/price.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOption } from '../../data/deliveryOption.js';
 import { paymentSummary } from '../checkout/paymentSummary.js';
+import { updateHeaderCart } from '../updateHeaderCart.js'
+
 
 function generateDeliveryHtml(matchingProduct, cartItem) {
   const today = dayjs();
@@ -49,7 +51,7 @@ function generateDeliveryHtml(matchingProduct, cartItem) {
     const deliveryDate = today.add(deliveryOptionID.deliveryDay, 'day');
     const dateString = deliveryDate.format('dddd MMMM D');
 
-    cartSummary += `<div class="cart-item-container js-cart-container-${matchingProduct.id}">
+    cartSummary += `<div class="cart-item-container js-cart-container-${matchingProduct.id} ">
       <div class="delivery-date">Delivery date: ${dateString}</div>
 
       <div class="cart-item-details-grid">
@@ -60,7 +62,9 @@ function generateDeliveryHtml(matchingProduct, cartItem) {
           <div class="product-price">$${convertCentIntoPrice(matchingProduct.priceCents)}</div>
           <div class="product-quantity">
             <span>Quantity: <span class="quantity-label">${cartItem.quantity}</span></span>
-            <span class="update-quantity-link link-primary">Update</span>
+            <span class="update-quantity-link link-primary js-quantity-update" data-product-id="${matchingProduct.id}">Update</span>
+            <input type="number" class="quantity-input js-input-quantity" value="${cartItem.quantity}" min="1" data-product-id="${matchingProduct.id}">
+            <span class="save-quantity-link link-primary js-save-link" data-product-id="${matchingProduct.id}">save</span>
             <span class="delete-quantity-link link-primary js-delete-product" data-product-id="${matchingProduct.id}">Delete</span>
           </div>
         </div>
@@ -88,13 +92,37 @@ function attachEventListeners() {
       removeFromCart(productId);
       const elementToRemove = document.querySelector(`.js-cart-container-${productId}`);
       if (elementToRemove) {
-        elementToRemove.remove();
+        renderCheckoutSummary();
       }
-      updateCartQuantity();
       paymentSummary();
+      updateHeaderCart();
     });
   });
-  updateCartQuantity();
+  
+  document.querySelectorAll('.js-quantity-update').forEach((link) =>{
+    link.addEventListener('click',() =>{
+      const productId = link.dataset.productId;
+      const container = document.querySelector(`.js-cart-container-${productId}`);
+      container.classList.add('is-editing-quantity')
+  
+    });
+  });
+
+  document.querySelectorAll('.js-save-link').forEach((link) =>{
+    link.addEventListener('click',() =>{
+      const productId = link.dataset.productId;
+      const container = document.querySelector(`.js-cart-container-${productId}`);
+      const quantityInput = container.querySelector('.js-input-quantity');
+      const newQuantity = parseInt(quantityInput.value, 10);
+      updateQuantity(productId, newQuantity);
+      renderCheckoutSummary();
+      paymentSummary();
+      updateHeaderCart();
+    });
+  });
+  
+
+  
   document.querySelectorAll('.js-delivery-option').forEach((option) => {
     option.addEventListener('click', () => {
       const productId = option.dataset.productId;
@@ -102,17 +130,13 @@ function attachEventListeners() {
       updateDeliveryOptionId(productId, deliveryOptionId);
       renderCheckoutSummary();
       paymentSummary();
+      updateHeaderCart() 
     });
   });
 }
 
-function updateCartQuantity() {
-  const jsHeaderQuantity = document.querySelector('.js-header-quantity');
-  if (!jsHeaderQuantity) return;
 
-  const cartQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-  jsHeaderQuantity.textContent = `${cartQuantity} items`;
-}
-
+  
 // Initialize the checkout summary
 renderCheckoutSummary();
+

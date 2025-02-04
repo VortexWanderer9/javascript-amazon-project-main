@@ -70,6 +70,17 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [
     savetoLocalStorage();
 
   }
+
+export function updateQuantity(productId, newQuantity){
+  let matchingProduct;
+  cart.forEach((cartItem) =>{
+    if(cartItem.productId === productId){
+      matchingProduct = cartItem;
+    }
+  });
+  matchingProduct.quantity = newQuantity;
+  savetoLocalStorage();
+}
  
  
   
