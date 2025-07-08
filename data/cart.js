@@ -1,16 +1,25 @@
 // Initial cart state
-export let cart = JSON.parse(localStorage.getItem('cart')) || [
-    {
-      productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-      quantity: 2,
-      deliveryOptionId : '1',
-    },
-    {
-      productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-      quantity: 1,
-      deliveryOptionId : '2'
-    },
-  ];
+  export let cart;
+
+  loadFromLocalStorage();
+
+  export function loadFromLocalStorage() {
+            cart = JSON.parse(localStorage.getItem('cart'));
+            if(!cart){
+         cart = [
+              {
+                productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+                quantity: 2,
+                deliveryOptionId : '1',
+              },
+              {
+                productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+                quantity: 1,
+                deliveryOptionId : '2'
+              },
+    ];
+            }
+    }
   
   // Save the cart to localStorage
   function savetoLocalStorage() {
@@ -18,9 +27,14 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [
   }
   
   // Add item to the cart
-  export function addToCart(productId) {
+  export function addToCart(productId, quantity = null) {
     let matchingProduct = null;
-    const quantitySelect = document.querySelector(`.product-quantity-select-${productId}`);
+    let selectedQuantity = quantity;
+
+    if(selectedQuantity === null){
+      const quantitySelect = document.querySelector(`.product-quantity-select-${productId}`);
+    selectedQuantity = Number(quantitySelect?.value || 1);
+    }
   
     // Check if the product is already in the cart
     cart.forEach((cartItem) => {
@@ -28,9 +42,8 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [
         matchingProduct = cartItem;
       }
     });
-  
-    let selectedQuantity = Number(quantitySelect.value);
-  
+
+
     // If the product is already in the cart, update the quantity
     if (matchingProduct) {
       matchingProduct.quantity += selectedQuantity;

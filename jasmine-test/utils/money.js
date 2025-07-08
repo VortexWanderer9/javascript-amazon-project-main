@@ -1,4 +1,4 @@
-import {convertCentIntoPrice} from '../script/utils/price.js';
+import {convertCentIntoPrice} from '../../script/utils/price.js';
 
 
 describe('test suits: convertCentIntoPrice', () => { 
