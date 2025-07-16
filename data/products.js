@@ -1,3 +1,6 @@
+ import { convertCentIntoPrice } from '../script/utils/price.js'
+ 
+ 
  export function getProduct(productId){
   let matchingProduct;
   products.forEach((product) => {
@@ -22,6 +25,13 @@ constructor(productItems){
   this.rating = productItems.rating
   this.priceCents = productItems.priceCents
   this.keywords  = productItems.keywords
+
+}
+getStarUrl() {
+  return `images/ratings/rating-${this.rating.stars * 10}.png`
+}
+getPrice(){
+  return `$${convertCentIntoPrice(this.priceCents)}`
 }
 }
 
