@@ -51,7 +51,7 @@ function generateDeliveryHtml(matchingProduct, cartItem) {
     const deliveryDate = today.add(deliveryOptionID.deliveryDay, 'day');
     const dateString = deliveryDate.format('dddd MMMM D');
 
-    cartSummary += `<div class="cart-item-container js-cart-container-${matchingProduct.id} ">
+    cartSummary += `<div class="cart-item-container js-cart-item-container js-cart-container-${matchingProduct.id} ">
       <div class="delivery-date">Delivery date: ${dateString}</div>
 
       <div class="cart-item-details-grid">
@@ -60,12 +60,12 @@ function generateDeliveryHtml(matchingProduct, cartItem) {
         <div class="cart-item-details">
           <div class="product-name">${matchingProduct.name}</div>
           <div class="product-price">$${convertCentIntoPrice(matchingProduct.priceCents)}</div>
-          <div class="product-quantity">
+          <div class="product-quantity js-test-quantity-${matchingProduct.id}">
             <span>Quantity: <span class="quantity-label">${cartItem.quantity}</span></span>
             <span class="update-quantity-link link-primary js-quantity-update" data-product-id="${matchingProduct.id}">Update</span>
             <input type="number" class="quantity-input js-input-quantity" value="${cartItem.quantity}" min="1" data-product-id="${matchingProduct.id}">
             <span class="save-quantity-link link-primary js-save-link" data-product-id="${matchingProduct.id}">save</span>
-            <span class="delete-quantity-link link-primary js-delete-product" data-product-id="${matchingProduct.id}">Delete</span>
+            <span class="delete-quantity-link link-primary js-delete-product js-test-delete-${matchingProduct.id}" data-product-id="${matchingProduct.id}">Delete</span>
           </div>
         </div>
 
