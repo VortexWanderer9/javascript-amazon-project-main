@@ -62,7 +62,7 @@ productContainer.innerHTML = productHtml;
     
 
 
-
+updateCartQuantity()
 // Update the cart quantity in the header
 function  updateCartQuantity() {
     let cartQuantity = 0;

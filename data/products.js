@@ -8,6 +8,24 @@
   return matchingProduct;
 }
 
+class Product {
+id;
+image;
+name;
+rating;
+priceCents;
+keywords;
+constructor(productItems){
+  this.id = productItems.id
+  this.image = productItems.image
+  this.name = productItems.name
+  this.rating = productItems.rating
+  this.priceCents = productItems.priceCents
+  this.keywords  = productItems.keywords
+}
+}
+
+
 
 
 
@@ -670,5 +688,7 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails) =>{
+  return new Product(productDetails)
+});
 

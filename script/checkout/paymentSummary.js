@@ -4,8 +4,6 @@ import { getDeliveryOption } from '../../data/deliveryOption.js'
 import { convertCentIntoPrice } from '../utils/price.js'
 import { updateHeaderCart } from '../updateHeaderCart.js'
 
-
-
 export function paymentSummary(){
   const cartQuantity = cart.reduce((total, item) => total + item.quantity, 0);
     let priceInCents = 0;
