@@ -33,11 +33,23 @@ getStarUrl() {
 getPrice(){
   return `$${convertCentIntoPrice(this.priceCents)}`
 }
+
+extraInfoHtml() {
+  return ``
 }
+}
+class clothingProduct extends Product{
+  sizeChartLink;
 
 
-
-
+  constructor(productDetails){
+    super(productDetails)
+    this.sizeChartLink = productDetails.sizeChartLink
+  }
+  extraInfoHtml(){
+    return `<a href="${this.sizeChartLink}" target="_blank"> Size Chart</a>`
+  }
+}
 
 export const products = [ 
   {
@@ -699,6 +711,12 @@ export const products = [
     ]
   }
 ].map((productDetails) =>{
+  if(productDetails.type === 'clothing'){
+    return new clothingProduct(productDetails)
+  }
   return new Product(productDetails)
 });
+
+
+
 
