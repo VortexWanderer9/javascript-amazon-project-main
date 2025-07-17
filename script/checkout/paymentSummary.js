@@ -48,10 +48,10 @@ export function paymentSummary(){
             <div>Order total:</div>
             <div class="payment-summary-money">💲${convertCentIntoPrice(totalCents)}</div>
           </div>
-
+          <a href="orders.html"> 
           <button class="place-order-button button-primary">
-            Place your order
-          </button>`
+        Place your order
+          </button> </a>`
           document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHtml;
 }
 

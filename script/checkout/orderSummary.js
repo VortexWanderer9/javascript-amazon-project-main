@@ -50,7 +50,6 @@ function generateDeliveryHtml(matchingProduct, cartItem) {
 
     const deliveryDate = today.add(deliveryOptionID.deliveryDay, 'day');
     const dateString = deliveryDate.format('dddd MMMM D');
-
     cartSummary += `<div class="cart-item-container js-cart-item-container js-cart-container-${matchingProduct.id} ">
       <div class="delivery-date">Delivery date: ${dateString}</div>
 
