@@ -14,8 +14,7 @@ export function paymentSummary(){
        const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId)
        shippingPriceCents += deliveryOption.priceCents;
     });
-    console.log(shippingPriceCents);
-    
+  
     const priceBeforeTax = priceInCents + shippingPriceCents;
     const taxCents = priceBeforeTax * 0.1;
     const totalCents = priceBeforeTax + taxCents;  

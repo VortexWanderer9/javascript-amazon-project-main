@@ -81,8 +81,17 @@ function generateDeliveryHtml(matchingProduct, cartItem) {
   if (orderSummaryElement) {
     orderSummaryElement.innerHTML = cartSummary;
   }
+  const emptyCart = `<div class="empty-cart">
+          <img src="images/empty-cart.jpg" width="350" alt="">
+          <p class="empty-cart-text">Cart is empty</p>
+          <p>Go and add some products in cart </p>
+         </div>`
 
   attachEventListeners();
+  if(!cartSummary){
+    orderSummaryElement.innerHTML = emptyCart
+    
+  }
 }
 
 function attachEventListeners() {
@@ -140,3 +149,7 @@ function attachEventListeners() {
 // Initialize the checkout summary
 renderCheckoutSummary();
 
+// if(!orderSummaryElement){
+//   console.log("i am empty");
+  
+// }

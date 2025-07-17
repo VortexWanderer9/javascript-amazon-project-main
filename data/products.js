@@ -39,18 +39,32 @@ extraInfoHtml() {
 }
 }
 class clothingProduct extends Product{
-  sizeChartLink;
-
+  sieChartLink;
 
   constructor(productDetails){
     super(productDetails)
     this.sizeChartLink = productDetails.sizeChartLink
   }
+
   extraInfoHtml(){
     return `<a href="${this.sizeChartLink}" target="_blank"> Size Chart</a>`
   }
+
 }
 
+
+class electronicProduct extends Product{
+ warrantyCardLink;
+
+constructor(productDetails){
+  super(productDetails)
+  this.warrantyCardLink = productDetails.warrantyCardLink; 
+}
+extraInfoHtml(){
+    return `<a href="${this.warrantyCardLink}" target="_blank">Warranty Card</a>`
+  }
+
+}
 export const products = [ 
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 
@@ -111,7 +125,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'electronic',
+    warrantyCardLink: 'images/electronic-warranty.jpg'
+
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -296,7 +313,9 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: 'electronic',
+    warrantyCardLink: 'images/electronic-warranty.jpg'
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -601,7 +620,10 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'electronic',
+    warrantyCardLink: 'images/electronic-warranty.jpg'
+    
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -661,7 +683,9 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'electronic',
+    warrantyCardLink: 'images/electronic-warranty.jpg'
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -711,6 +735,9 @@ export const products = [
     ]
   }
 ].map((productDetails) =>{
+  if(productDetails.type === 'electronic'){
+    return new electronicProduct(productDetails)
+  }
   if(productDetails.type === 'clothing'){
     return new clothingProduct(productDetails)
   }
