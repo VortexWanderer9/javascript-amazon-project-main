@@ -83,7 +83,7 @@ function generateDeliveryHtml(matchingProduct, cartItem) {
   const emptyCart = `<div class="empty-cart">
           <img src="images/empty-cart.jpg" width="350" alt="">
           <p class="empty-cart-text">Cart is empty</p>
-          <p>Go and add some products in cart </p>
+          <p>Go and add some products</p>
          </div>`
 
   attachEventListeners();

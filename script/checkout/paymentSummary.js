@@ -48,10 +48,13 @@ export function paymentSummary(){
             <div>Order total:</div>
             <div class="payment-summary-money">💲${convertCentIntoPrice(totalCents)}</div>
           </div>
-          <a href="orders.html"> 
-          <button class="place-order-button button-primary">
+          <button class="place-order-button button-primary js-order-button">
         Place your order
-          </button> </a>`
+          </button>`
           document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHtml;
+           document.querySelector('.js-order-button').addEventListener('click', () =>{
+    window.location.href = 'orders.html'
+   })
 }
 
+  
