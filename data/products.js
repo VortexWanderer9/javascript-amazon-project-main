@@ -412,7 +412,7 @@ export const products = [
     keywords: [
       "shoes",
       "flats",
-      "womens",
+      "women",
       "footwear"
     ]
   },
